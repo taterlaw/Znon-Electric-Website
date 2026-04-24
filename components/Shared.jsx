@@ -33,6 +33,7 @@ function Plus({ open }) {
 
 // ---------- Top nav ----------
 function TopBar({ page, onNav }) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const items = [
     { id: 'home', label: 'Home' },
     { id: 'residential', label: 'Residential' },
@@ -40,26 +41,60 @@ function TopBar({ page, onNav }) {
     { id: 'portfolio', label: 'Our Work' },
     { id: 'contact', label: 'Contact' },
   ];
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  const go = (id) => { setMenuOpen(false); onNav(id); };
+
   return (
     <header className="topbar">
       <div className="topbar-inner">
-        <a className="brand" href="#" onClick={(e) => { e.preventDefault(); onNav('home'); }}>
+        <a className="brand" href="#" onClick={(e) => { e.preventDefault(); go('home'); }}>
           <span className="brand-mark">Z</span>
           <span className="brand-name" style={{ marginLeft: -4 }}>non</span>
           <span className="brand-sub">Electric · Austin TX</span>
         </a>
-        <nav className="nav-links">
+        <nav className="nav-links nav-desktop">
           {items.map(it => (
             <a key={it.id} href="#" className={`nav-link ${page === it.id ? 'active' : ''}`}
-              onClick={(e) => { e.preventDefault(); onNav(it.id); }}>
+              onClick={(e) => { e.preventDefault(); go(it.id); }}>
               {it.label}
             </a>
           ))}
         </nav>
-        <a className="nav-cta" href="#" onClick={(e) => { e.preventDefault(); onNav('contact'); }}>
+        <a className="nav-cta nav-desktop" href="#" onClick={(e) => { e.preventDefault(); go('contact'); }}>
           <span className="dot" /> Request a quote
         </a>
+        <button className="nav-burger" onClick={() => setMenuOpen(m => !m)} aria-label="Menu">
+          <span style={{ transform: menuOpen ? 'translateY(5px) rotate(45deg)' : 'none' }} />
+          <span style={{ opacity: menuOpen ? 0 : 1 }} />
+          <span style={{ transform: menuOpen ? 'translateY(-5px) rotate(-45deg)' : 'none' }} />
+        </button>
       </div>
+
+      {menuOpen && (
+        <div className="mobile-menu">
+          {items.map(it => (
+            <a key={it.id} href="#"
+              className={`mobile-menu-link ${page === it.id ? 'active' : ''}`}
+              onClick={(e) => { e.preventDefault(); go(it.id); }}>
+              <span>{it.label}</span>
+              <Arrow size={18} />
+            </a>
+          ))}
+          <a className="btn btn-primary" style={{ margin: '24px 20px', justifyContent: 'space-between' }}
+            href="#" onClick={(e) => { e.preventDefault(); go('contact'); }}>
+            Request a quote <Arrow />
+          </a>
+          <a className="btn btn-ghost" style={{ margin: '0 20px', justifyContent: 'space-between' }}
+            href="tel:5125550117">
+            (512) 555‑0117 <Arrow />
+          </a>
+        </div>
+      )}
     </header>
   );
 }

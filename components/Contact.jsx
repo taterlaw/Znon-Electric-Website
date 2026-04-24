@@ -113,14 +113,14 @@ function Contact({ onNav }) {
 
       <section style={{ padding: '60px 0 120px' }}>
         <div className="container">
-          <div style={{
+          <div className="contact-grid" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 2fr',
             gap: 64,
             alignItems: 'start',
           }}>
             {/* Sidebar */}
-            <aside style={{ position: 'sticky', top: 96 }}>
+            <aside className="contact-sidebar" style={{ position: 'sticky', top: 96 }}>
               <div style={{ borderTop: '1px solid var(--ink)', paddingTop: 20 }}>
                 <div className="meta">PROGRESS</div>
                 <div style={{ display: 'flex', gap: 4, marginTop: 16 }}>

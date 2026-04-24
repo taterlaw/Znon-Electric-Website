@@ -93,7 +93,7 @@ function ServicePage({ variant, onNav }) {
             {data.title} <span className="italic" style={{ color: 'var(--maroon)' }}>{data.titleItalic}</span>
           </h1>
 
-          <div style={{
+          <div className="hero-2col" style={{
             display: 'grid',
             gridTemplateColumns: '1.3fr 1fr',
             gap: 48,
@@ -132,7 +132,7 @@ function ServicePage({ variant, onNav }) {
             </h2>
           </div>
 
-          <div style={{
+          <div className="scope-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
             gap: 0,
@@ -168,7 +168,7 @@ function ServicePage({ variant, onNav }) {
             </h2>
           </div>
 
-          <table style={{
+          <table className="pricing-table" style={{
             width: '100%',
             borderCollapse: 'collapse',
             fontSize: 15,
@@ -200,7 +200,7 @@ function ServicePage({ variant, onNav }) {
       {/* TESTIMONIAL */}
       <section className="section">
         <div className="container">
-          <div style={{
+          <div className="testi-grid" style={{
             border: '1px solid var(--ink)',
             padding: '64px 48px',
             display: 'grid',
@@ -270,7 +270,7 @@ function ServicePage({ variant, onNav }) {
       {/* CROSS-LINK */}
       <section style={{ padding: '60px 0 120px' }}>
         <div className="container">
-          <a href="#" onClick={(e) => { e.preventDefault(); onNav(variant === 'residential' ? 'commercial' : 'residential'); }}
+          <a href="#" className="cross-link" onClick={(e) => { e.preventDefault(); onNav(variant === 'residential' ? 'commercial' : 'residential'); }}
             style={{
               display: 'grid',
               gridTemplateColumns: '1fr auto',

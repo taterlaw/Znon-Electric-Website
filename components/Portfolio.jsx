@@ -44,7 +44,7 @@ function Portfolio({ onNav }) {
           </p>
 
           {/* Filter bar */}
-          <div style={{
+          <div className="portfolio-filter" style={{
             display: 'flex',
             gap: 0,
             marginTop: 64,
@@ -76,7 +76,7 @@ function Portfolio({ onNav }) {
       {/* Grid */}
       <section style={{ padding: '40px 0 120px' }}>
         <div className="container">
-          <div style={{
+          <div className="portfolio-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(12, 1fr)',
             gap: 16,

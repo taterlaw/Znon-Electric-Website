@@ -42,7 +42,7 @@ function Home({ onNav }) {
             think about.
           </h1>
 
-          <div style={{
+          <div className="hero-2col" style={{
             display: 'grid',
             gridTemplateColumns: '1.2fr 1fr',
             gap: 48,
@@ -74,10 +74,11 @@ function Home({ onNav }) {
               label="Hero: crew + van on Austin job site"
               tag="PRIMARY IMAGE"
               dark
+              className="ph-hero"
               style={{ height: 'min(520px, 48vw)' }}
             />
             {/* Overlaid spec card */}
-            <div style={{
+            <div className="hero-spec-card" style={{
               position: 'absolute',
               bottom: 20,
               right: 20,
@@ -112,7 +113,7 @@ function Home({ onNav }) {
 
           <div>
             {services.map((s, i) => (
-              <a key={s.n} href="#" className="service-row"
+              <a key={s.n} href="#" className="service-row service-row-mobile"
                 onMouseEnter={() => setHoverService(i)}
                 onMouseLeave={() => setHoverService(null)}
                 onClick={(e) => { e.preventDefault(); onNav(s.title === 'Residential' ? 'residential' : s.title === 'Commercial' ? 'commercial' : 'contact'); }}
@@ -131,8 +132,8 @@ function Home({ onNav }) {
                   paddingRight: hoverService === i ? 24 : 0,
                 }}>
                 <span className="meta" style={{ color: 'inherit', opacity: 0.7 }}>{s.n}</span>
-                <span className="display display-m" style={{ fontSize: 'clamp(32px, 4vw, 56px)' }}>{s.title}</span>
-                <span style={{ fontSize: 15, opacity: 0.85 }}>{s.sub}</span>
+                <span className="display display-m service-title" style={{ fontSize: 'clamp(32px, 4vw, 56px)' }}>{s.title}</span>
+                <span className="service-sub" style={{ fontSize: 15, opacity: 0.85 }}>{s.sub}</span>
                 <span className="row gap-12 center">
                   <span className="meta" style={{ color: 'inherit', opacity: 0.7 }}>{s.tag}</span>
                   <Arrow size={20} style={{ opacity: hoverService === i ? 1 : 0.5 }} />
@@ -150,7 +151,7 @@ function Home({ onNav }) {
             <span className="kicker">By the numbers</span>
             <span className="meta">AS OF Q2 2026</span>
           </div>
-          <div style={{
+          <div className="stats-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
             gap: 32,
@@ -180,7 +181,7 @@ function Home({ onNav }) {
             </h2>
           </div>
 
-          <div style={{
+          <div className="work-grid" style={{
             display: 'grid',
             gridTemplateColumns: '2fr 1fr 1fr',
             gridTemplateRows: '340px 260px',
@@ -205,7 +206,7 @@ function Home({ onNav }) {
       {/* TESTIMONIAL */}
       <section style={{ background: 'var(--maroon)', color: 'var(--paper)', padding: '100px 0' }}>
         <div className="container">
-          <div style={{
+          <div className="testi-grid" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 2fr',
             gap: 48,
@@ -246,7 +247,7 @@ function Home({ onNav }) {
             </h2>
           </div>
 
-          <div style={{
+          <div className="process-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
             gap: 0,
