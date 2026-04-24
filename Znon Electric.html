@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Znon Electric — Austin, TX</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css" />
+
+<style>
+  @keyframes tickerScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-33.333%); }
+  }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="components/Shared.jsx"></script>
+<script type="text/babel" src="components/Home.jsx"></script>
+<script type="text/babel" src="components/ServicePage.jsx"></script>
+<script type="text/babel" src="components/Portfolio.jsx"></script>
+<script type="text/babel" src="components/Contact.jsx"></script>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "maroon",
+  "displayItalicAccent": true,
+  "tickerStyle": "ink"
+}/*EDITMODE-END*/;
+
+const ACCENTS = {
+  maroon:  { main: '#6B1F2A', deep: '#3F1218', ink: '#2A0C11', label: 'Maroon' },
+  burgundy:{ main: '#7A1B2E', deep: '#4A0D1C', ink: '#2E0712', label: 'Burgundy' },
+  rust:    { main: '#8A3A1E', deep: '#532210', ink: '#371609', label: 'Rust' },
+  ink:     { main: '#1A1614', deep: '#000000', ink: '#000000', label: 'Black' },
+};
+
+function applyAccent(key) {
+  const a = ACCENTS[key] || ACCENTS.maroon;
+  const r = document.documentElement.style;
+  r.setProperty('--maroon', a.main);
+  r.setProperty('--maroon-deep', a.deep);
+  r.setProperty('--maroon-ink', a.ink);
+  r.setProperty('--accent', a.main);
+}
+
+function App() {
+  const [page, setPage] = useState(() => localStorage.getItem('znon_page') || 'home');
+  const [tweaks, setTweaks] = useState(TWEAKS_DEFAULTS);
+  const [tweaksOpen, setTweaksOpen] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('znon_page', page);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [page]);
+
+  useEffect(() => { applyAccent(tweaks.accent); }, [tweaks.accent]);
+
+  // Tweaks mode protocol
+  useEffect(() => {
+    const onMessage = (e) => {
+      if (!e.data) return;
+      if (e.data.type === '__activate_edit_mode') setTweaksOpen(true);
+      if (e.data.type === '__deactivate_edit_mode') setTweaksOpen(false);
+    };
+    window.addEventListener('message', onMessage);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMessage);
+  }, []);
+
+  const updateTweak = (k, v) => {
+    const next = { ...tweaks, [k]: v };
+    setTweaks(next);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [k]: v } }, '*');
+  };
+
+  const onNav = (id) => setPage(id);
+
+  return (
+    <>
+      <TopBar page={page} onNav={onNav} />
+      <main data-screen-label={pageLabel(page)}>
+        {page === 'home' && <Home onNav={onNav} />}
+        {page === 'residential' && <ServicePage variant="residential" onNav={onNav} />}
+        {page === 'commercial' && <ServicePage variant="commercial" onNav={onNav} />}
+        {page === 'portfolio' && <Portfolio onNav={onNav} />}
+        {page === 'contact' && <Contact onNav={onNav} />}
+      </main>
+      <Footer onNav={onNav} />
+
+      {tweaksOpen && (
+        <div className="tweaks-panel">
+          <h5>Tweaks</h5>
+
+          <div className="tweaks-row">
+            <label>Accent color</label>
+            {Object.keys(ACCENTS).map(k => (
+              <div key={k}
+                className={'tweaks-swatch ' + (tweaks.accent === k ? 'active' : '')}
+                style={{ background: ACCENTS[k].main }}
+                title={ACCENTS[k].label}
+                onClick={() => updateTweak('accent', k)} />
+            ))}
+          </div>
+
+          <div className="tweaks-row">
+            <label>Italic accent on display type</label>
+            {[['On', true], ['Off', false]].map(([l, v]) => (
+              <button key={l}
+                className={'tweaks-chip ' + (tweaks.displayItalicAccent === v ? 'active' : '')}
+                onClick={() => updateTweak('displayItalicAccent', v)}>
+                {l}
+              </button>
+            ))}
+          </div>
+
+          <div className="tweaks-row">
+            <label>Trust ticker</label>
+            {[['Ink', 'ink'], ['Maroon', 'maroon']].map(([l, v]) => (
+              <button key={v}
+                className={'tweaks-chip ' + (tweaks.tickerStyle === v ? 'active' : '')}
+                onClick={() => updateTweak('tickerStyle', v)}>
+                {l}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Live stylesheet overrides from tweaks */}
+      <style>{`
+        ${tweaks.displayItalicAccent ? '' : '.display .italic { color: inherit !important; }'}
+      `}</style>
+    </>
+  );
+}
+
+function pageLabel(p) {
+  return ({
+    home: '01 Home',
+    residential: '02 Residential',
+    commercial: '03 Commercial',
+    portfolio: '04 Portfolio',
+    contact: '05 Contact',
+  })[p] || p;
+}
+
+// Override Ticker maroon prop from tweaks
+const OriginalTicker = window.Ticker;
+window.Ticker = function TickerProxy(props) {
+  // Read tweaks default from DOM var or window — simple approach: read CSS var state
+  const isMaroon = document.documentElement.dataset.tickerStyle === 'maroon';
+  return <OriginalTicker {...props} maroon={props.maroon ?? isMaroon} />;
+};
+
+function BootTickerSync() {
+  // sync ticker style setting to a data attr for the proxy
+  useEffect(() => {
+    const mo = () => {};
+    // initial + on changes via mutation on documentElement dataset
+  }, []);
+  return null;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+</body>
+</html>
