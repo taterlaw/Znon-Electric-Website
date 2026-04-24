@@ -44,7 +44,54 @@ function Contact({ onNav }) {
 
   const next = () => { if (validateStep()) setStep(s => s + 1); };
   const back = () => setStep(s => Math.max(1, s - 1));
-  const submit = () => { if (validateStep()) setSubmitted(true); };
+
+  const RECIPIENT = 'service@z-non.com';
+
+  const buildMailto = () => {
+    const subject = `${data.type} — ${data.urgency}`;
+    const bodyLines = [
+      `New quote request from the Znon Electric website`,
+      `─────────────────────────────────────────────`,
+      ``,
+      `FROM`,
+      `  ${data.name}`,
+      `  ${data.email || '(no email)'}`,
+      `  ${data.phone || '(no phone)'}`,
+      `  Prefers: ${data.contact_pref}`,
+      ``,
+      `JOB`,
+      `  Type:     ${data.type}`,
+      `  Scope:    ${data.scope.join(', ')}`,
+      `  Urgency:  ${data.urgency}`,
+      ``,
+      `LOCATION`,
+      `  Address:  ${data.address}`,
+      `  Size:     ${data.sqft || '(not provided)'}`,
+      ``,
+      `NOTES`,
+      `  ${data.notes || '(none)'}`,
+      ``,
+      `─────────────────────────────────────────────`,
+      `Please reply to: ${data.email || data.phone}`,
+    ];
+    const body = bodyLines.join('\n');
+    const params = new URLSearchParams();
+    params.set('subject', subject);
+    params.set('body', body);
+    // Encode the sender as the reply-to via cc to themselves, so they get a copy too
+    if (data.email) params.set('cc', data.email);
+    // URLSearchParams encodes spaces as +; mailto expects %20 for body newlines to work
+    const query = params.toString().replace(/\+/g, '%20');
+    return `mailto:${RECIPIENT}?${query}`;
+  };
+
+  const submit = () => {
+    if (!validateStep()) return;
+    // Open the user's email client with a fully-prepopulated message
+    const link = buildMailto();
+    window.location.href = link;
+    setSubmitted(true);
+  };
 
   const scopeOptions = data.type === 'Commercial' || data.type === 'Contractor sub'
     ? ['Tenant finish', 'New construction', 'Maintenance', 'LED retrofit', 'Service call', 'Low‑voltage', 'Other']
@@ -60,7 +107,7 @@ function Contact({ onNav }) {
             <span className="italic" style={{ color: 'var(--maroon)' }}>We'll be in touch.</span>
           </h1>
           <p className="lede mt-32" style={{ maxWidth: '50ch' }}>
-            Your request is on our board. Expect a call or email within two business hours, during business hours. If it's an emergency right now, pick up the phone: <a href="tel:5125550117" style={{ color: 'var(--maroon)', borderBottom: '1px solid var(--maroon)' }}>(512) 555‑0117</a>.
+            Your email client should have opened with your request filled in — just hit send and it'll land with our dispatch team at <a href={`mailto:service@z-non.com`} style={{ color: 'var(--maroon)', borderBottom: '1px solid var(--maroon)' }}>service@z-non.com</a>. Expect a reply within two business hours. Emergency right now? Call <a href="tel:5125550117" style={{ color: 'var(--maroon)', borderBottom: '1px solid var(--maroon)' }}>(512) 555‑0117</a>.
           </p>
           <div style={{ border: '1px solid var(--ink)', padding: 32, marginTop: 48, maxWidth: 640 }}>
             <div className="meta">REQUEST SUMMARY · #ZN{Math.floor(Math.random()*9000+1000)}</div>
