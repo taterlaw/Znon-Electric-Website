@@ -71,8 +71,8 @@ function Home({ onNav }) {
           {/* Hero image band */}
           <div style={{ marginTop: 64, position: 'relative' }}>
             <Ph
-              label="Hero: crew + van on Austin job site"
-              tag="PRIMARY IMAGE"
+              src="company-images/trucks-old-logo.png"
+              label="Znon Electric trucks"
               dark
               className="ph-hero"
               style={{ height: 'min(520px, 48vw)' }}
