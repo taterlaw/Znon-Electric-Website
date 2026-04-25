@@ -3,9 +3,24 @@
 const { useState, useEffect, useRef } = React;
 
 // ---------- Placeholder ----------
-function Ph({ label, tag, dark, style, className = '', children }) {
+function Ph({ label, tag, dark, style, className = '', children, src, imgFilter }) {
   return (
     <div className={`ph ${dark ? 'ph-dark' : ''} ${className}`} style={style}>
+      {src && (
+        <img
+          src={src}
+          alt={label || ''}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
+            filter: imgFilter || 'none',
+          }}
+        />
+      )}
       {tag && <span className="ph-tag">{tag}</span>}
       {label && <span className="ph-label">{label}</span>}
       {children}

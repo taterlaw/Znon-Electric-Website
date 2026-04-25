@@ -6,8 +6,10 @@ function ServicePage({ variant, onNav }) {
     title: 'Residential',
     titleItalic: 'electrical',
     lede: 'From a flickering kitchen light to a full‑house rewire on a 1940s Travis Heights bungalow — we\'ve probably seen your problem before, and we\'ve definitely fixed it.',
-    heroLabel: 'Tech installing recessed lighting · Hyde Park remodel',
+    heroLabel: 'Ceiling fixture installation · Hyde Park remodel',
     heroTag: 'RESIDENTIAL',
+    heroImg: 'residential-images/residential-ceiling-fixture1.webp',
+    heroImgFilter: 'grayscale(100%)',
     fileNo: 'ZN‑R / RESIDENTIAL SERVICES',
     scope: [
       { n: '01', t: 'Panel upgrades & service changes', d: '100A → 200A upgrades, meter swaps, sub‑panels. Permitted and inspected.' },
@@ -115,6 +117,8 @@ function ServicePage({ variant, onNav }) {
             <Ph
               tag={data.heroTag}
               label={data.heroLabel}
+              src={data.heroImg}
+              imgFilter={data.heroImgFilter}
               dark
               style={{ height: 'min(480px, 44vw)' }}
             />

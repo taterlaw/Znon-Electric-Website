@@ -5,15 +5,15 @@ function Portfolio({ onNav }) {
   const [selected, setSelected] = useState(null);
 
   const projects = [
-    { id: 1, title: 'Clarksville service upgrade', cat: 'residential', scope: '200A panel swap', year: '2026', loc: 'Clarksville', days: '2', size: 'span 6' },
+    { id: 1, title: 'Clarksville service upgrade', cat: 'residential', scope: '200A panel swap', year: '2026', loc: 'Clarksville', days: '2', size: 'span 6', img: 'residential-images/residential-kitchen-living-room2.webp', photoLabel: 'Kitchen & living room · Clarksville' },
     { id: 2, title: 'East 6th tenant finish', cat: 'commercial', scope: 'Restaurant build‑out', year: '2026', loc: 'East 6th', days: '18', size: 'span 6' },
     { id: 3, title: 'Mueller custom home', cat: 'contractor', scope: 'Rough‑in · trim', year: '2025', loc: 'Mueller', days: '14', size: 'span 4' },
-    { id: 4, title: 'Westlake EV charger', cat: 'residential', scope: 'Level 2 · Powerwall', year: '2025', loc: 'Westlake', days: '1', size: 'span 4' },
+    { id: 4, title: 'Westlake EV charger', cat: 'residential', scope: 'Level 2 · Powerwall', year: '2025', loc: 'Westlake', days: '1', size: 'span 4', img: 'residential-images/residential-EV-powerwall-installed.avif', photoLabel: 'EV Powerwall installed · Westlake' },
     { id: 5, title: 'South Congress retail', cat: 'commercial', scope: 'LED retrofit', year: '2025', loc: 'S. Congress', days: '5', size: 'span 4' },
-    { id: 6, title: 'Travis Heights rewire', cat: 'residential', scope: 'Whole‑home rewire', year: '2025', loc: 'Travis Heights', days: '9', size: 'span 6' },
+    { id: 6, title: 'Travis Heights rewire', cat: 'residential', scope: 'Whole‑home rewire', year: '2025', loc: 'Travis Heights', days: '9', size: 'span 6', img: 'residential-images/residential-closet1.webp', imgFilter: 'sepia(25%) contrast(1.1)', photoLabel: 'Closet lighting · Travis Heights' },
     { id: 7, title: 'Reyes Build · Tarrytown', cat: 'contractor', scope: 'Custom home sub', year: '2025', loc: 'Tarrytown', days: '22', size: 'span 6' },
     { id: 8, title: 'Rainey St. bar build‑out', cat: 'commercial', scope: 'Bar · kitchen · sound', year: '2024', loc: 'Rainey St.', days: '16', size: 'span 4' },
-    { id: 9, title: 'Hyde Park ADU', cat: 'residential', scope: 'ADU electrical', year: '2024', loc: 'Hyde Park', days: '6', size: 'span 4' },
+    { id: 9, title: 'Hyde Park ADU', cat: 'residential', scope: 'ADU electrical', year: '2024', loc: 'Hyde Park', days: '6', size: 'span 4', img: 'residential-images/residential-kitchen1.webp', photoLabel: 'Kitchen electrical · Hyde Park' },
     { id: 10, title: 'Domain office fit‑out', cat: 'commercial', scope: 'Office tenant finish', year: '2024', loc: 'The Domain', days: '11', size: 'span 4' },
   ];
 
@@ -94,7 +94,9 @@ function Portfolio({ onNav }) {
               >
                 <Ph
                   tag={p.cat.toUpperCase()}
-                  label={p.scope + ' · ' + p.loc}
+                  label={p.photoLabel || (p.scope + ' · ' + p.loc)}
+                  src={p.img}
+                  imgFilter={p.imgFilter}
                   dark={i % 3 === 1}
                   style={{ height: 300 }}
                 />
@@ -150,7 +152,7 @@ function Portfolio({ onNav }) {
                 Close ×
               </button>
             </div>
-            <Ph tag={selected.cat.toUpperCase()} label={selected.scope + ' · ' + selected.loc} style={{ height: 400 }} dark />
+            <Ph tag={selected.cat.toUpperCase()} label={selected.photoLabel || (selected.scope + ' · ' + selected.loc)} src={selected.img} imgFilter={selected.imgFilter} style={{ height: 400 }} dark />
             <div style={{ padding: 40 }}>
               <h2 className="display display-m" style={{ margin: 0 }}>{selected.title}</h2>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24, marginTop: 32, paddingTop: 24, borderTop: '1px solid var(--grey-line)' }}>
