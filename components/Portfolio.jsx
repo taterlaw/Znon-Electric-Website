@@ -6,15 +6,15 @@ function Portfolio({ onNav }) {
 
   const projects = [
     { id: 1, title: 'Clarksville service upgrade', cat: 'residential', scope: '200A panel swap', year: '2026', loc: 'Clarksville', days: '2', size: 'span 6', img: 'residential-images/residential-kitchen-living-room2.webp', photoLabel: 'Kitchen & living room · Clarksville' },
-    { id: 2, title: 'East 6th tenant finish', cat: 'commercial', scope: 'Restaurant build‑out', year: '2026', loc: 'East 6th', days: '18', size: 'span 6' },
+    { id: 2, title: 'East 6th tenant finish', cat: 'commercial', scope: 'Restaurant build‑out', year: '2026', loc: 'East 6th', days: '18', size: 'span 6', img: 'commercial-images/apartment-kitchen1.jpg', photoLabel: 'Kitchen electrical · East 6th' },
     { id: 3, title: 'Mueller custom home', cat: 'residential', scope: 'Rough‑in · trim', year: '2025', loc: 'Mueller', days: '14', size: 'span 4', img: 'residential-images/residential-outdoor-garage1.webp', photoLabel: 'Outdoor garage electrical · Mueller' },
     { id: 4, title: 'Westlake EV charger', cat: 'residential', scope: 'Level 2 · Powerwall', year: '2025', loc: 'Westlake', days: '1', size: 'span 4', img: 'residential-images/residential-EV-powerwall-installed.avif', photoLabel: 'EV Powerwall installed · Westlake' },
-    { id: 5, title: 'South Congress retail', cat: 'commercial', scope: 'LED retrofit', year: '2025', loc: 'S. Congress', days: '5', size: 'span 4' },
+    { id: 5, title: 'South Congress retail', cat: 'commercial', scope: 'LED retrofit', year: '2025', loc: 'S. Congress', days: '5', size: 'span 4', img: 'commercial-images/apartment-living-space1.jpg', photoLabel: 'Interior lighting retrofit · S. Congress' },
     { id: 6, title: 'Travis Heights rewire', cat: 'residential', scope: 'Whole‑home rewire', year: '2025', loc: 'Travis Heights', days: '9', size: 'span 6', img: 'residential-images/residential-closet1.webp', imgFilter: 'sepia(25%) contrast(1.1)', photoLabel: 'Closet lighting · Travis Heights' },
     { id: 7, title: 'Reyes Build · Tarrytown', cat: 'residential', scope: 'Custom home sub', year: '2025', loc: 'Tarrytown', days: '22', size: 'span 6', img: 'residential-images/residential-kitchen3.webp', imgFilter: 'grayscale(30%)', photoLabel: 'Kitchen electrical · Tarrytown' },
-    { id: 8, title: 'Rainey St. bar build‑out', cat: 'commercial', scope: 'Bar · kitchen · sound', year: '2024', loc: 'Rainey St.', days: '16', size: 'span 4' },
+    { id: 8, title: 'Rainey St. bar build‑out', cat: 'commercial', scope: 'Bar · kitchen · sound', year: '2024', loc: 'Rainey St.', days: '16', size: 'span 4', img: 'commercial-images/austin-bar-outside1.jpg', photoLabel: 'Bar exterior · Rainey St.' },
     { id: 9, title: 'Hyde Park ADU', cat: 'residential', scope: 'ADU electrical', year: '2024', loc: 'Hyde Park', days: '6', size: 'span 4', img: 'residential-images/residential-kitchen1.webp', photoLabel: 'Kitchen electrical · Hyde Park' },
-    { id: 10, title: 'Domain office fit‑out', cat: 'commercial', scope: 'Office tenant finish', year: '2024', loc: 'The Domain', days: '11', size: 'span 4' },
+    { id: 10, title: 'Domain office fit‑out', cat: 'commercial', scope: 'Office tenant finish', year: '2024', loc: 'The Domain', days: '11', size: 'span 4', img: 'commercial-images/commericial-office-meeting-room.jpg', photoLabel: 'Office fit-out · The Domain' },
   ];
 
   const filtered = filter === 'all' ? projects : projects.filter(p => p.cat === filter);

@@ -39,8 +39,9 @@ function ServicePage({ variant, onNav }) {
     title: 'Commercial',
     titleItalic: 'electrical',
     lede: 'Tenant finish‑outs, ground‑up build‑outs, maintenance contracts, and sub work for Austin\'s general contractors. We read plans. We pull permits. We hit milestone dates.',
-    heroLabel: 'Crew pulling conduit · East Austin warehouse conversion',
+    heroLabel: 'Commercial job site · Austin',
     heroTag: 'COMMERCIAL',
+    heroImg: 'commercial-images/austin-city-skyline.jpg',
     fileNo: 'ZN‑C / COMMERCIAL SERVICES',
     scope: [
       { n: '01', t: 'Tenant finish‑outs', d: 'Restaurants, retail, offices, medical. Design‑build or plan‑and‑spec.' },
