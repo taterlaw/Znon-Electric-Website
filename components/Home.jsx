@@ -189,7 +189,7 @@ function Home({ onNav }) {
           }}>
             <Ph tag="RESIDENTIAL" label="Kitchen & living room · Clarksville" src="residential-images/residential-kitchen-living-room1.webp" style={{ gridRow: 'span 2', height: '100%' }} />
             <Ph tag="COMMERCIAL" label="Tenant finish · E. 6th Street" style={{ height: '100%' }} />
-            <Ph tag="CONTRACTOR" label="New build rough‑in · Mueller" style={{ height: '100%' }} dark />
+            <Ph tag="RESIDENTIAL" label="Outdoor recessed lighting · Mueller" src="residential-images/residential-outdoor-recess-lighting1.webp" style={{ height: '100%' }} dark />
             <Ph tag="RESIDENTIAL" label="EV Powerwall installed · Westlake" src="residential-images/residential-EV-powerwall-installed.avif" style={{ height: '100%' }} dark />
             <Ph tag="COMMERCIAL" label="LED retrofit · South Congress" style={{ height: '100%' }} />
           </div>
